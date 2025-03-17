@@ -56,7 +56,7 @@
       transform: translateY(0);
     }
     h1 {
-      font-size: 50px;
+      font-size: 40px; /* 字体稍微小一些 */
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
       background: var(--white-bg);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -66,6 +66,11 @@
       padding: 10px 20px;
       border-radius: 10px;
       margin: 20px;
+    }
+    /* 将第一页和最后一页的标题置于烟花效果（canvas）之上 */
+    #section1 h1, #section9 h1 {
+      position: relative;
+      z-index: 2;
     }
     p {
       font-size: 20px;
