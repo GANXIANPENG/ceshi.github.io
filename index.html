@@ -28,6 +28,11 @@
             justify-content: center;
             align-items: center;
             color: white;
+            /* 增加玻璃效果 */
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         h1 {
             font-size: 50px;
@@ -57,6 +62,33 @@
             background-color: #2193b0;
             color: white;
         }
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        .checkbox-container, .input-container {
+            margin-top: 20px;
+        }
+        .input-container input {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        img {
+            width: 50%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -68,45 +100,17 @@
         </div>
 
         <div class="section" id="section2" style="display: none;">
-            <h1>人机验证</h1>
+            <h1>人机验证注意</h1>
             <p>点击“已确认”方可进行下一步</p>
-            <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
-            <label for="confirm1">已确认</label>
+            <p>点击即代表您同意上述内容</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
+                <label for="confirm1">已确认</label>
+            </div>
             <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
         </div>
 
-        <div class="section" id="sectionGame" style="display: none;">
-            <h1>小游戏挑战</h1>
-            <p>快速点击按钮10次，即可继续下一页！</p>
-            <p>点击次数：<span id="clickCount">0</span>/10</p>
-            <button onclick="incrementClickCount()">点击我</button>
-            <button onclick="nextSlide()" id="nextGameButton" disabled>下一页</button>
-        </div>
-
-        <script>
-            let clickCount = 0;
-            function incrementClickCount() {
-                clickCount++;
-                document.getElementById("clickCount").innerText = clickCount;
-                if (clickCount >= 10) {
-                    document.getElementById("nextGameButton").disabled = false;
-                }
-            }
-
-            let currentSection = 1;
-            function nextSlide() {
-                document.getElementById(`section${currentSection}`).style.display = "none";
-                currentSection++;
-                document.getElementById(`section${currentSection}`).style.display = "flex";
-                window.scrollTo(0, 0);
-            }
-
-            function enableNextButton(checkboxId, buttonId) {
-                document.getElementById(buttonId).disabled = !document.getElementById(checkboxId).checked;
-            }
-        </script>
-
-            <!-- 密码验证页面 -->
+        <!-- 密码验证页面 -->
         <div class="section" id="section3" style="display: none;">
             <h1>请输入密码</h1>
             <p>请输入正确密码以继续：</p>
@@ -156,17 +160,19 @@
             <p>这张很好看！📷摄影师@GAN</p>
             <p>图片加载失败就刷新或者换网络环境</p>
             <p>实在不行买台新手机</p>
-            <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
+            <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="lbr吃饭照片">
             <button onclick="nextSlide()">下一页</button>
         </div>
 
        <div class="section" id="section8" style="display: none;">
-    <h1>祝李老师未来一切顺利！</h1>
-    <p>再次祝：毕业快乐，未来可期！🎉</p>
-    <p>顺顺利利，学业有成！🎉</p>
-    <button onclick="goToHome()">回到首页</button>
-    <canvas id="fireworksCanvas"></canvas>
-</div>
+            <h1>祝李老师未来一切顺利！</h1>
+            <p>再次祝：毕业快乐，未来可期！🎉</p>
+            <p>顺顺利利，学业有成！🎉</p>
+            <button onclick="goToHome()">回到首页</button>
+            <canvas id="fireworksCanvas"></canvas>
+        </div>
+
+    </div>
 
     <div class="footer">
         © 2025 全部运行代码由 GAN 设计与开发
@@ -175,16 +181,16 @@
     <script>
         let currentSection = 1;
 
-       function nextSlide() {
-    document.getElementById(`section${currentSection}`).style.display = "none";
-    currentSection++;
-    document.getElementById(`section${currentSection}`).style.display = "flex";
-    window.scrollTo(0, 0);
+        function nextSlide() {
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection++;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
 
-    if (currentSection === 8) {
-        setTimeout(startFireworks, 500);
-    }
-}
+            if (currentSection === 8) {
+                setTimeout(startFireworks, 500);
+            }
+        }
 
         function goToHome() {
             document.getElementById(`section${currentSection}`).style.display = "none";
@@ -203,68 +209,67 @@
 
         function handleEnter(event) {
             if (event.key === "Enter") validatePassword();
-
-
         }
+
         function startFireworks() {
-    const canvas = document.getElementById("fireworksCanvas");
-    if (!canvas) {
-        console.error("Canvas 元素未找到");
-        return;
-    }
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    const particles = [];
-    function Particle(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 4 - 2;
-        this.speedY = Math.random() * 4 - 2;
-        this.opacity = 1;
-    }
-    Particle.prototype.update = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.opacity -= 0.02;
-    };
-    Particle.prototype.draw = function() {
-        ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    };
-    
-    function createFirework(x, y) {
-        const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
-        for (let i = 0; i < 50; i++) {
-            particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
-        }
-    }
-    
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            particles[i].draw();
-            if (particles[i].opacity <= 0) {
-                particles.splice(i, 1);
-                i--;
+            const canvas = document.getElementById("fireworksCanvas");
+            if (!canvas) {
+                console.error("Canvas 元素未找到");
+                return;
             }
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const particles = [];
+            function Particle(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 4 - 2;
+                this.speedY = Math.random() * 4 - 2;
+                this.opacity = 1;
+            }
+            Particle.prototype.update = function() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.opacity -= 0.02;
+            };
+            Particle.prototype.draw = function() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            };
+            
+            function createFirework(x, y) {
+                const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+                }
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].opacity <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            
+            setInterval(() => {
+                createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
+            }, 500);
+            
+            animate();
         }
-        requestAnimationFrame(animate);
-    }
-    
-    setInterval(() => {
-        createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
-    }, 500);
-    
-    animate();
-}
 
         function nextSlide() {
             document.getElementById(`section${currentSection}`).style.display = "none";
