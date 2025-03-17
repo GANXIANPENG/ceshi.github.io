@@ -21,7 +21,9 @@
             align-items: center;
         }
         .section {
-            display: none;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -30,46 +32,249 @@
         h1 {
             font-size: 50px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
         }
         p {
             font-size: 20px;
             opacity: 0.9;
         }
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: white;
+            color: #2193b0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
+            background-color: #2193b0;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="container" id="container">
-        <div class="section" id="section1" style="display: flex;">
-            <h1>摇一摇开启祝福！🎉</h1>
-            <p>请轻轻摇晃你的手机！</p>
-            <p id="shakeMessage" style="display: none; font-size: 24px; font-weight: bold; color: yellow;">🎊 祝李老师前程似锦！ 🎊</p>
+        <div class="section" id="section1">
+            <h1>祝李老师毕业快乐！🎓🎉</h1>
+            <p>From 甘弦朋 邓杰</p>
+            <button onclick="nextSlide()">下一页</button>
         </div>
-    </div>
-    <script>
-        let lastX, lastY, lastZ;
-        let shakeThreshold = 15; 
-        let lastTime = 0;
 
-        window.addEventListener("devicemotion", function(event) {
-            let acceleration = event.accelerationIncludingGravity;
-            let curTime = new Date().getTime();
-            if ((curTime - lastTime) > 100) {
-                let diffTime = curTime - lastTime;
-                lastTime = curTime;
+        <div class="section" id="section2" style="display: none;">
+            <h1>人机验证</h1>
+            <p>点击“已确认”方可进行下一步</p>
+            <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
+            <label for="confirm1">已确认</label>
+            <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
+        </div>
 
-                let deltaX = acceleration.x - lastX;
-                let deltaY = acceleration.y - lastY;
-                let deltaZ = acceleration.z - lastZ;
-                let speed = Math.abs(deltaX + deltaY + deltaZ) / diffTime * 10000;
+        <div class="section" id="sectionGame" style="display: none;">
+            <h1>小游戏挑战</h1>
+            <p>快速点击按钮10次，即可继续下一页！</p>
+            <p>点击次数：<span id="clickCount">0</span>/10</p>
+            <button onclick="incrementClickCount()">点击我</button>
+            <button onclick="nextSlide()" id="nextGameButton" disabled>下一页</button>
+        </div>
 
-                if (speed > shakeThreshold) {
-                    document.getElementById("shakeMessage").style.display = "block";
+        <script>
+            let clickCount = 0;
+            function incrementClickCount() {
+                clickCount++;
+                document.getElementById("clickCount").innerText = clickCount;
+                if (clickCount >= 10) {
+                    document.getElementById("nextGameButton").disabled = false;
                 }
-                lastX = acceleration.x;
-                lastY = acceleration.y;
-                lastZ = acceleration.z;
             }
-        }, false);
+
+            let currentSection = 1;
+            function nextSlide() {
+                document.getElementById(`section${currentSection}`).style.display = "none";
+                currentSection++;
+                document.getElementById(`section${currentSection}`).style.display = "flex";
+                window.scrollTo(0, 0);
+            }
+
+            function enableNextButton(checkboxId, buttonId) {
+                document.getElementById(buttonId).disabled = !document.getElementById(checkboxId).checked;
+            }
+        </script>
+
+            <!-- 密码验证页面 -->
+        <div class="section" id="section3" style="display: none;">
+            <h1>请输入密码</h1>
+            <p>请输入正确密码以继续：</p>
+            <div class="input-container">
+                <input type="password" id="passwordInput" placeholder="输入密码" oninput="validatePassword()" onkeypress="handleEnter(event)">
+            </div>
+            <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
+        </div>
+
+        <div class="section" id="section4" style="display: none;">
+            <h1>回忆成就</h1>
+            <p>声乐部门公认的唱歌第一</p>
+            <p>钢琴部门弹钢琴第一</p>
+            <p>体育体能第一</p>
+            <p>学习成绩第一</p>
+            <p>吃饭第一</p>
+            <p>是我们学习的榜样</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm2" onchange="enableNextButton('confirm2', 'nextButton3')"> 
+                <label for="confirm2">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
+        </div>
+
+        <div class="section" id="section5" style="display: none;">
+            <h1>GAN</h1>
+            <p>好好吃饭，按时睡觉。</p>
+            <p>家人闲坐，灯火可亲。</p>
+           <div class="checkbox-container">
+                <input type="checkbox" id="confirm3" onchange="enableNextButton('confirm3', 'nextButton4')"> 
+                <label for="confirm3">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
+        </div>
+
+        <!-- 新增页面 -->
+        <div class="section" id="section6" style="display: none;">
+            <h1>DENG</h1>
+            <p>希君生羽翼</p>
+            <p>一化北冥鱼</p>
+            <button onclick="nextSlide()">下一页</button>
+        </div>
+
+        <!-- 图片展示页面 -->
+        <div class="section" id="section7" style="display: none;">
+            <h1>特别的瞬间</h1>
+            <p>这张很好看！📷摄影师@GAN</p>
+            <p>图片加载失败就刷新或者换网络环境</p>
+            <p>实在不行买台新手机</p>
+            <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
+            <button onclick="nextSlide()">下一页</button>
+        </div>
+
+       <div class="section" id="section8" style="display: none;">
+    <h1>祝李老师未来一切顺利！</h1>
+    <p>再次祝：毕业快乐，未来可期！🎉</p>
+    <p>顺顺利利，学业有成！🎉</p>
+    <button onclick="goToHome()">回到首页</button>
+    <canvas id="fireworksCanvas"></canvas>
+</div>
+
+    <div class="footer">
+        © 2025 全部运行代码由 GAN 设计与开发
+    </div>
+
+    <script>
+        let currentSection = 1;
+
+       function nextSlide() {
+    document.getElementById(`section${currentSection}`).style.display = "none";
+    currentSection++;
+    document.getElementById(`section${currentSection}`).style.display = "flex";
+    window.scrollTo(0, 0);
+
+    if (currentSection === 8) {
+        setTimeout(startFireworks, 500);
+    }
+}
+
+        function goToHome() {
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection = 1;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
+        }
+
+        function enableNextButton(checkboxId, buttonId) {
+            document.getElementById(buttonId).disabled = !document.getElementById(checkboxId).checked;
+        }
+
+        function validatePassword() {
+            document.getElementById("nextButton2").disabled = document.getElementById("passwordInput").value !== "04240417";
+        }
+
+        function handleEnter(event) {
+            if (event.key === "Enter") validatePassword();
+
+
+        }
+        function startFireworks() {
+    const canvas = document.getElementById("fireworksCanvas");
+    if (!canvas) {
+        console.error("Canvas 元素未找到");
+        return;
+    }
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const particles = [];
+    function Particle(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 4 - 2;
+        this.speedY = Math.random() * 4 - 2;
+        this.opacity = 1;
+    }
+    Particle.prototype.update = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.opacity -= 0.02;
+    };
+    Particle.prototype.draw = function() {
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    };
+    
+    function createFirework(x, y) {
+        const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+        }
+    }
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+            if (particles[i].opacity <= 0) {
+                particles.splice(i, 1);
+                i--;
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    
+    setInterval(() => {
+        createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
+    }, 500);
+    
+    animate();
+}
+
+        function nextSlide() {
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection++;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
+            if (currentSection === 8) {
+                startFireworks();
+            }
+        }
     </script>
 </body>
 </html>
