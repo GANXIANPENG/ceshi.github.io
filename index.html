@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祝李老师毕业快乐！</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #6dd5ed, #2193b0);
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .section {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        h1 {
+            font-size: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="section" id="section1" style="display: flex;">
+            <h1>摇一摇开启祝福！🎉</h1>
+            <p>请轻轻摇晃你的手机！</p>
+            <p id="shakeMessage" style="display: none; font-size: 24px; font-weight: bold; color: yellow;">🎊 祝李老师前程似锦！ 🎊</p>
+        </div>
+    </div>
+    <script>
+        let lastX, lastY, lastZ;
+        let shakeThreshold = 15; 
+        let lastTime = 0;
+
+        window.addEventListener("devicemotion", function(event) {
+            let acceleration = event.accelerationIncludingGravity;
+            let curTime = new Date().getTime();
+            if ((curTime - lastTime) > 100) {
+                let diffTime = curTime - lastTime;
+                lastTime = curTime;
+
+                let deltaX = acceleration.x - lastX;
+                let deltaY = acceleration.y - lastY;
+                let deltaZ = acceleration.z - lastZ;
+                let speed = Math.abs(deltaX + deltaY + deltaZ) / diffTime * 10000;
+
+                if (speed > shakeThreshold) {
+                    document.getElementById("shakeMessage").style.display = "block";
+                }
+                lastX = acceleration.x;
+                lastY = acceleration.y;
+                lastZ = acceleration.z;
+            }
+        }, false);
+    </script>
+</body>
+</html>
