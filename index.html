@@ -139,6 +139,14 @@
       pointer-events: none;
       z-index: 0;
     }
+    /* 新增：第一页烟花效果 canvas 样式 */
+    #fireworksCanvasFirst {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
@@ -148,6 +156,8 @@
       <h1>祝李老师毕业快乐！🎓🎉</h1>
       <p>From 甘弦朋 邓杰</p>
       <button onclick="nextSlide()">下一页</button>
+      <!-- 在第一页添加烟花 canvas -->
+      <canvas id="fireworksCanvasFirst"></canvas>
     </div>
 
     <!-- 新增的小游戏页面（插入在第一页和原第二页之间） -->
@@ -260,6 +270,8 @@
 
     // 显示初始页面
     showSection(currentSection);
+    // 启动第一页的烟花效果
+    startFireworks("fireworksCanvasFirst");
 
     function nextSlide() {
       const current = document.getElementById(`section${currentSection}`);
@@ -295,6 +307,8 @@
           home.classList.add('show');
         }, 100);
         window.scrollTo(0, 0);
+        // 重启第一页烟花效果
+        startFireworks("fireworksCanvasFirst");
       }, 300);
     }
 
@@ -349,11 +363,11 @@
       document.getElementById("nextButtonGame").style.display = "inline-block";
     }
 
-    // 烟花动画代码
-    function startFireworks() {
-      const canvas = document.getElementById("fireworksCanvas");
+    // 烟花动画代码，新增参数 canvasId（默认为 "fireworksCanvas"）
+    function startFireworks(canvasId = "fireworksCanvas") {
+      const canvas = document.getElementById(canvasId);
       if (!canvas) {
-        console.error("Canvas 元素未找到");
+        console.error("Canvas 元素未找到: " + canvasId);
         return;
       }
       const ctx = canvas.getContext("2d");
