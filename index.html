@@ -37,7 +37,7 @@
       position: relative;
       z-index: 1;
     }
-    /* 优化页面切换：使用平滑的透明度与位移过渡 */
+    /* 原有的淡入和位移效果 */
     .section {
       width: 90%;
       max-width: 800px;
@@ -51,9 +51,38 @@
       transform: translateY(20px);
       transition: opacity var(--transition-duration) ease, transform var(--transition-duration) ease;
     }
+    /* 新增：进入时的弹跳动画效果 */
+    @keyframes bounceInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-10%);
+      }
+      80% {
+        transform: translateY(5%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
     .section.show {
       opacity: 1;
       transform: translateY(0);
+      animation: bounceInUp 0.6s ease-out;
+    }
+    /* 新增：标题淡入下落动画 */
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     h1 {
       font-size: 30px; /* 字体稍微小一些 */
@@ -66,6 +95,7 @@
       padding: 10px 20px;
       border-radius: 10px;
       margin: 20px;
+      animation: fadeInDown 1s ease-out;
     }
     /* 将第一页和最后一页的标题置于烟花效果（canvas）之上 */
     #section1 h1, #section9 h1 {
@@ -90,6 +120,15 @@
       transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
+    /* 新增：按钮点击时的弹跳效果 */
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+    button:active {
+      animation: pop 0.2s ease;
+    }
     button:disabled {
       background: #ccc;
       color: #666;
@@ -110,6 +149,15 @@
       color: #fff;
       font-size: 14px;
       opacity: 0.85;
+    }
+    /* 新增：页脚轻微脉动动画 */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .footer {
+      animation: pulse 3s infinite;
     }
     .checkbox-container, .input-container {
       margin-top: 20px;
@@ -152,7 +200,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
     /* 新增：漂亮的等待进度条样式 */
     .progress-container {
       width: 80%;
