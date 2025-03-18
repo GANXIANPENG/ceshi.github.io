@@ -37,7 +37,7 @@
       position: relative;
       z-index: 1;
     }
-    /* 每个页面占满全屏，并垂直排列 */
+    /* 每个页面占满全屏，并居中 */
     .section {
       width: 90%;
       max-width: 800px;
@@ -231,9 +231,11 @@
     <div class="section" id="section2" style="animation-delay: 0.3s;">
       <h1>电子合照</h1>
       <p>请允许调用摄像头进行拍照</p>
-      <video id="video" width="320" height="240" autoplay playsinline style="border:1px solid #ccc; margin-bottom:10px;"></video>
+      <video id="video" width="320" height="240" autoplay playsinline style="border:1px solid #ccc;"></video>
+      <br>
       <button id="captureButton" onclick="capturePhoto()">拍照</button>
-      <canvas id="photoCanvas" width="320" height="240" style="display:none; border:1px solid #ccc; margin:10px 0 20px 0;"></canvas>
+      <canvas id="photoCanvas" width="320" height="240" style="display:none; border:1px solid #ccc; margin-top:10px;"></canvas>
+      <br>
       <button onclick="nextSlide()">下一页</button>
     </div>
 
