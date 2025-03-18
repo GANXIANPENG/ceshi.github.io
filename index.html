@@ -98,7 +98,7 @@
       animation: fadeInDown 1s ease-out;
     }
     /* 将第一页和最后一页的标题置于烟花效果（canvas）之上 */
-    #section1 h1, #section9 h1 {
+    #section1 h1, #section10 h1 {
       position: relative;
       z-index: 2;
     }
@@ -238,8 +238,20 @@
       <canvas id="fireworksCanvasFirst"></canvas>
     </div>
 
-    <!-- 新增的小游戏页面（插入在第一页和原第二页之间） -->
+    <!-- 新增：电子合照页面，插入在第一页和原第二页之间 -->
     <div class="section" id="section2" style="animation-delay: 0.3s;">
+      <h1>电子合照</h1>
+      <p>请允许调用摄像头进行拍照</p>
+      <video id="video" width="320" height="240" autoplay playsinline style="border:1px solid #ccc;"></video>
+      <br>
+      <button id="captureButton" onclick="capturePhoto()">拍照</button>
+      <canvas id="photoCanvas" width="320" height="240" style="display:none; border:1px solid #ccc; margin-top:10px;"></canvas>
+      <br>
+      <button onclick="nextSlide()">下一页</button>
+    </div>
+
+    <!-- 原小游戏页面，现为第三页 -->
+    <div class="section" id="section3" style="animation-delay: 0.6s;">
       <h1>等待时活动下手指</h1>
       <p>等待后续底层画面渲染完毕..</p>
       <div class="progress-container">
@@ -257,8 +269,8 @@
       <button onclick="nextSlide()" id="nextButtonGame" style="display:none;">下一页</button>
     </div>
 
-    <!-- 原第二页，现为第三页 -->
-    <div class="section" id="section3" style="animation-delay: 0.6s;">
+    <!-- 原第二页，现为第四页 -->
+    <div class="section" id="section4" style="animation-delay: 0.9s;">
       <h1>人机验证注意</h1>
       <p>点击“已确认”方可进行下一步</p>
       <p>点击即代表您同意上述内容</p>
@@ -269,8 +281,8 @@
       <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
     </div>
 
-    <!-- 密码验证页面，现为第四页 -->
-    <div class="section" id="section4" style="animation-delay: 0.9s;">
+    <!-- 密码验证页面，现为第五页 -->
+    <div class="section" id="section5" style="animation-delay: 1.2s;">
       <h1>请输入密码</h1>
       <p>*因为买不起私人服务器所以用的公共网络搭建*</p>
       <p>*为避免此公共网站遭受恶意攻击登录所以设置密码*</p>
@@ -280,8 +292,8 @@
       <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
     </div>
 
-    <!-- 回忆成就页面，现为第五页 -->
-    <div class="section" id="section5" style="animation-delay: 1.2s;">
+    <!-- 回忆成就页面，现为第六页 -->
+    <div class="section" id="section6" style="animation-delay: 1.5s;">
       <h1>回忆成就</h1>
       <p>声乐部门公认的唱歌第一</p>
       <p>钢琴部门弹钢琴第一</p>
@@ -297,8 +309,8 @@
       <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
     </div>
 
-    <!-- GAN 页面，现为第六页 -->
-    <div class="section" id="section6" style="animation-delay: 1.5s;">
+    <!-- GAN 页面，现为第七页 -->
+    <div class="section" id="section7" style="animation-delay: 1.8s;">
       <h1>GAN</h1>
       <p>好好吃饭，按时睡觉。</p>
       <p>家人闲坐，灯火可亲。</p>
@@ -309,16 +321,16 @@
       <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
     </div>
 
-    <!-- DENG 页面，现为第七页 -->
-    <div class="section" id="section7" style="animation-delay: 1.8s;">
+    <!-- DENG 页面，现为第八页 -->
+    <div class="section" id="section8" style="animation-delay: 2.1s;">
       <h1>DENG</h1>
       <p>希君生羽翼,</p>
       <p>一化北冥鱼。</p>
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 图片展示页面，现为第八页 -->
-    <div class="section" id="section8" style="animation-delay: 2.1s;">
+    <!-- 图片展示页面，现为第九页 -->
+    <div class="section" id="section9" style="animation-delay: 2.4s;">
       <h1>特别的瞬间</h1>
       <p>这张很好看！📷摄影师@GAN</p>
       <p>图片加载失败就刷新或者换网络环境</p>
@@ -327,8 +339,8 @@
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 毕业祝福页面，现为第九页 -->
-    <div class="section" id="section9" style="animation-delay: 2.4s;">
+    <!-- 毕业祝福页面，现为第十页 -->
+    <div class="section" id="section10" style="animation-delay: 2.7s;">
       <h1>祝李老师毕业快乐！</h1>
       <p>开开心心，未来可期！🎉</p>
       <p>顺顺利利，学业有成！🎉</p>
@@ -337,8 +349,8 @@
       <canvas id="fireworksCanvas"></canvas>
     </div>
 
-    <!-- 制作人员页面，现为第十页 -->
-    <div class="section" id="section10" style="animation-delay: 2.7s;">
+    <!-- 制作人员页面，现为第十一页 -->
+    <div class="section" id="section11" style="animation-delay: 3.0s;">
       <h1>制作人员</h1>
       <p>代码设计与开发: GAN</p>
       <p>动画改进与优化: GAN</p>
@@ -348,8 +360,8 @@
       <button onclick="nextSlide()">不要点我</button>
     </div>
 
-    <!-- 新增：彩蛋页面，现为第十一页 -->
-    <div class="section" id="section11" style="animation-delay: 3.0s;">
+    <!-- 新增：彩蛋页面，现为第十二页 -->
+    <div class="section" id="section12" style="animation-delay: 3.3s;">
       <h1>彩蛋</h1>
       <p>你发现了隐藏的彩蛋页面！</p>
       <p>我先想想这里放点什么照片好</p>
@@ -393,15 +405,17 @@
         next.style.display = "flex";
         setTimeout(() => {
           next.classList.add('show');
-          // 如果进入小游戏页面，则启动游戏
           if (currentSection === 2) {
+            startCamera();
+          }
+          if (currentSection === 3) {
             startGame();
+          }
+          if (currentSection === 10) {
+            startFireworks();
           }
         }, 100);
         window.scrollTo(0, 0);
-        if (currentSection === 9) {
-          startFireworks();
-        }
       }, 300);
     }
 
@@ -446,108 +460,4 @@
     }
 
     function handleEnter(event) {
-      if (event.key === "Enter") validatePassword();
-    }
-
-    // 小游戏相关代码
-    let gameScore = 0;
-    let gameTime = 10; // 游戏时间，单位：秒
-    let gameTimer;
-
-    function startGame() {
-      // 重置游戏分数和时间
-      gameScore = 0;
-      gameTime = 10;
-      document.getElementById("scoreDisplay").innerText = gameScore;
-      document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
-      document.getElementById("gameButton").disabled = false;
-      document.getElementById("nextButtonGame").style.display = "none";
-
-      // 清除之前的计时器
-      if (gameTimer) clearInterval(gameTimer);
-
-      // 启动倒计时
-      gameTimer = setInterval(() => {
-        gameTime--;
-        document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
-        if (gameTime <= 0) {
-          clearInterval(gameTimer);
-          endGame();
-        }
-      }, 1000);
-    }
-
-    function gameClick() {
-      gameScore++;
-      document.getElementById("scoreDisplay").innerText = gameScore;
-    }
-
-    function endGame() {
-      document.getElementById("gameButton").disabled = true;
-      // 游戏结束后显示下一页按钮
-      document.getElementById("nextButtonGame").style.display = "inline-block";
-    }
-
-    // 烟花动画代码，新增参数 canvasId（默认为 "fireworksCanvas"）
-    function startFireworks(canvasId = "fireworksCanvas") {
-      const canvas = document.getElementById(canvasId);
-      if (!canvas) {
-        console.error("Canvas 元素未找到: " + canvasId);
-        return;
-      }
-      const ctx = canvas.getContext("2d");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      
-      const particles = [];
-      function Particle(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 4 - 2;
-        this.speedY = Math.random() * 4 - 2;
-        this.opacity = 1;
-      }
-      Particle.prototype.update = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.opacity -= 0.02;
-      };
-      Particle.prototype.draw = function() {
-        ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      };
-      
-      function createFirework(x, y) {
-        const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
-        for (let i = 0; i < 50; i++) {
-          particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
-        }
-      }
-      
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particles.length; i++) {
-          particles[i].update();
-          particles[i].draw();
-          if (particles[i].opacity <= 0) {
-            particles.splice(i, 1);
-            i--;
-          }
-        }
-        requestAnimationFrame(animate);
-      }
-      
-      setInterval(() => {
-        createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
-      }, 500);
-      
-      animate();
-    }
-  </script>
-</body>
-</html>
+      if (event.key === "Enter") 
