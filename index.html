@@ -530,7 +530,7 @@
         const acceleration = event.accelerationIncludingGravity;
         const totalAcc = Math.sqrt(acceleration.x * acceleration.x + acceleration.y * acceleration.y + acceleration.z * acceleration.z);
         // 根据需要调整阈值，此处设为25
-        if (totalAcc > 25) {
+        if (totalAcc > 10) {
           sensorTriggered = true;
           document.getElementById("blessingText").style.display = "block";
           document.getElementById("nextButtonSensor").disabled = false;
