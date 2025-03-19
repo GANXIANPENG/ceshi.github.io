@@ -236,7 +236,7 @@
       <button id="nextButtonSensor" onclick="nextSlide()" disabled>下一页</button>
     </div>
 
-    <!-- 电子合照页面（原第2页，现在为第3页） -->
+    <!-- 电子合照页面 -->
     <div class="section" id="section3" style="animation-delay: 0.6s;">
       <h1>电子合照</h1>
       <p>请允许调用摄像头进行拍照</p>
@@ -249,7 +249,7 @@
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 小游戏页面（原第3页，现在为第4页） -->
+    <!-- 小游戏页面 -->
     <div class="section" id="section4" style="animation-delay: 0.9s;">
       <h1>等待时活动下手指</h1>
       <p>等待拍摄照片上传服务器图库..</p>
@@ -268,7 +268,7 @@
       <button onclick="nextSlide()" id="nextButtonGame" style="display:none;">下一页</button>
     </div>
 
-    <!-- 人机验证页面（原第4页，现在为第5页） -->
+    <!-- 人机验证页面 -->
     <div class="section" id="section5" style="animation-delay: 1.2s;">
       <h1>人机验证注意</h1>
       <p>点击“已确认”方可进行下一步</p>
@@ -280,7 +280,7 @@
       <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
     </div>
 
-    <!-- 密码验证页面（原第5页，现在为第6页） -->
+    <!-- 密码验证页面 -->
     <div class="section" id="section6" style="animation-delay: 1.5s;">
       <h1>请输入密码</h1>
       <p>*因为买不起私人服务器所以用公共网络搭建*</p>
@@ -291,7 +291,7 @@
       <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
     </div>
 
-    <!-- 回忆成就页面（原第6页，现在为第7页） -->
+    <!-- 回忆成就页面 -->
     <div class="section" id="section7" style="animation-delay: 1.8s;">
       <h1>回忆成就</h1>
       <p>声乐部门公认的唱歌第一</p>
@@ -308,7 +308,7 @@
       <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
     </div>
 
-    <!-- GAN 页面（原第7页，现在为第8页） -->
+    <!-- GAN 页面 -->
     <div class="section" id="section8" style="animation-delay: 2.1s;">
       <h1>GAN</h1>
       <p>好好吃饭，按时睡觉。</p>
@@ -320,7 +320,7 @@
       <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
     </div>
 
-    <!-- DENG 页面（原第8页，现在为第9页） -->
+    <!-- DENG 页面 -->
     <div class="section" id="section9" style="animation-delay: 2.4s;">
       <h1>DENG</h1>
       <p>希君生羽翼,</p>
@@ -328,7 +328,7 @@
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 图片展示页面（原第9页，现在为第10页） -->
+    <!-- 图片展示页面 -->
     <div class="section" id="section10" style="animation-delay: 2.7s;">
       <h1>特别的瞬间</h1>
       <p>这张很好看！📷摄影师@GAN</p>
@@ -338,7 +338,7 @@
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 毕业祝福页面（原第10页，现在为第11页） -->
+    <!-- 毕业祝福页面 -->
     <div class="section" id="section11" style="animation-delay: 3.0s;">
       <h1>祝李老师毕业快乐！</h1>
       <p>开开心心，未来可期！🎉</p>
@@ -348,7 +348,7 @@
       <canvas id="fireworksCanvas"></canvas>
     </div>
 
-    <!-- 制作人员页面（原第11页，现在为第12页） -->
+    <!-- 制作人员页面 -->
     <div class="section" id="section12" style="animation-delay: 3.3s;">
       <h1>制作人员</h1>
       <p>代码设计与开发: GAN</p>
@@ -359,7 +359,7 @@
       <button onclick="nextSlide()">不要点我</button>
     </div>
 
-    <!-- 彩蛋页面（原第12页，现在为第13页） -->
+    <!-- 彩蛋页面 -->
     <div class="section" id="section13" style="animation-delay: 3.6s;">
       <h1>彩蛋</h1>
       <p>你发现了隐藏的彩蛋页面！</p>
@@ -522,25 +522,42 @@
       canvas.style.display = "block";
     }
 
-    // 传感器互动代码：摇晃手机显示祝福
+    // 更新后的传感器互动代码：摇晃手机显示祝福，阈值设为15并请求 iOS 权限
     function startSensor() {
       let sensorTriggered = false;
       function deviceMotionHandler(event) {
         if (sensorTriggered) return;
         const acceleration = event.accelerationIncludingGravity;
-        const totalAcc = Math.sqrt(acceleration.x * acceleration.x + acceleration.y * acceleration.y + acceleration.z * acceleration.z);
-        // 根据需要调整阈值，此处设为25
-        if (totalAcc > 10) {
+        if (!acceleration) return;
+        const totalAcc = Math.sqrt(
+          (acceleration.x || 0) ** 2 +
+          (acceleration.y || 0) ** 2 +
+          (acceleration.z || 0) ** 2
+        );
+        // 阈值设为15，更灵敏
+        if (totalAcc > 15) {
           sensorTriggered = true;
           document.getElementById("blessingText").style.display = "block";
           document.getElementById("nextButtonSensor").disabled = false;
           window.removeEventListener('devicemotion', deviceMotionHandler);
         }
       }
-      window.addEventListener('devicemotion', deviceMotionHandler, false);
+      // 针对 iOS 13+ 请求权限
+      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission()
+          .then(response => {
+            if (response === 'granted') {
+              window.addEventListener('devicemotion', deviceMotionHandler, false);
+            } else {
+              console.log("设备传感器权限被拒绝");
+            }
+          })
+          .catch(console.error);
+      } else {
+        window.addEventListener('devicemotion', deviceMotionHandler, false);
+      }
     }
 
-    // 烟花动画代码
     function startFireworks(canvasId = "fireworksCanvas") {
       const canvas = document.getElementById(canvasId);
       if (!canvas) {
