@@ -234,7 +234,7 @@
       <h1>试试摇一摇手机</h1>
       <p>不给予权限无法检测以进行下一步</p>
       <p id="blessingText" style="display: none;">毕业不是终点，而是一个新的起点。
-      家人闲坐，灯火可亲。前路光明，一切顺利。</p>
+     前路光明，一切顺利。</p>
       <button id="nextButtonSensor" onclick="nextSlide()" disabled>下一页</button>
     </div>
 
@@ -524,7 +524,7 @@
       canvas.style.display = "block";
     }
 
-    // 更新后的传感器互动代码：摇晃手机显示祝福，阈值设为35并请求 iOS 权限
+    // 更新后的传感器互动代码：摇晃手机显示祝福，阈值设为45并请求 iOS 权限
     function startSensor() {
       let sensorTriggered = false;
       function deviceMotionHandler(event) {
@@ -536,8 +536,8 @@
           (acceleration.y || 0) ** 2 +
           (acceleration.z || 0) ** 2
         );
-        // 阈值设为35，更灵敏
-        if (totalAcc > 25) {
+        // 阈值设为45，更灵敏
+        if (totalAcc > 45) {
           sensorTriggered = true;
           document.getElementById("blessingText").style.display = "block";
           document.getElementById("nextButtonSensor").disabled = false;
