@@ -99,7 +99,7 @@
       animation: fadeInDown 1s ease-out;
     }
     /* 首页和毕业祝福页面标题置于烟花之上 */
-    #section1 h1, #section11 h1 {
+    #section1 h1, #section12 h1 {
       position: relative;
       z-index: 2;
     }
@@ -229,8 +229,16 @@
       <canvas id="fireworksCanvasFirst"></canvas>
     </div>
 
-    <!-- 新增：摇手机互动页面 -->
+    <!-- 新增：定位页面（插入在首页后） -->
     <div class="section" id="section2" style="animation-delay: 0.3s;">
+      <h1>想看看你现在在哪里</h1>
+      <p id="locationStatus">正在获取您的位置...</p>
+      <div id="map" style="width: 100%; height: 400px; margin:20px 0; display:none;"></div>
+      <button onclick="nextSlide()">下一页</button>
+    </div>
+
+    <!-- 原摇手机互动页面，现顺延为第3页 -->
+    <div class="section" id="section3" style="animation-delay: 0.6s;">
       <h1>试试摇一摇手机</h1>
       <p>不给予权限无法检测以进行下一步</p>
       <p id="blessingText" style="display: none;">毕业不是终点，而是一个新的起点。
@@ -238,9 +246,9 @@
       <button id="nextButtonSensor" onclick="nextSlide()" disabled>下一页</button>
     </div>
 
-    <!-- 电子合照页面 -->
-    <div class="section" id="section3" style="animation-delay: 0.6s;">
-      <h1>电子合照</h1>
+    <!-- 电子合照页面，现为第4页 -->
+    <div class="section" id="section4" style="animation-delay: 0.9s;">
+      <h1>想多看看你</h1>
       <p>请允许调用摄像头进行拍照</p>
       <p>！测试版网站 请谨慎操作！</p>
       <video id="video" width="320" height="240" autoplay playsinline style="border:1px solid #ccc;"></video>
@@ -251,10 +259,10 @@
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 小游戏页面 -->
-    <div class="section" id="section4" style="animation-delay: 0.9s;">
+    <!-- 小游戏页面，现为第5页 -->
+    <div class="section" id="section5" style="animation-delay: 1.2s;">
       <h1>等待时活动下手指</h1>
-      <p>等待拍摄照片上传服务器图库..</p>
+      <p>等待数据上传服务器..</p>
       <div class="progress-container">
         <div class="progress-bar"></div>
       </div>
@@ -270,8 +278,8 @@
       <button onclick="nextSlide()" id="nextButtonGame" style="display:none;">下一页</button>
     </div>
 
-    <!-- 人机验证页面 -->
-    <div class="section" id="section5" style="animation-delay: 1.2s;">
+    <!-- 人机验证页面，现为第6页 -->
+    <div class="section" id="section6" style="animation-delay: 1.5s;">
       <h1>人机验证注意</h1>
       <p>点击“已确认”方可进行下一步</p>
       <p>点击即代表您同意上述内容</p>
@@ -282,8 +290,8 @@
       <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
     </div>
 
-    <!-- 密码验证页面 -->
-    <div class="section" id="section6" style="animation-delay: 1.5s;">
+    <!-- 密码验证页面，现为第7页 -->
+    <div class="section" id="section7" style="animation-delay: 1.8s;">
       <h1>请输入密码</h1>
       <p>*因为买不起私人服务器所以用公共网络搭建*</p>
       <p>*为避免此公共网站遭受恶意攻击登录所以设置密码*</p>
@@ -293,8 +301,8 @@
       <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
     </div>
 
-    <!-- 回忆成就页面 -->
-    <div class="section" id="section7" style="animation-delay: 1.8s;">
+    <!-- 回忆成就页面，现为第8页 -->
+    <div class="section" id="section8" style="animation-delay: 2.1s;">
       <h1>回忆成就</h1>
       <p>声乐部门公认的唱歌第一</p>
       <p>钢琴部门弹钢琴第一</p>
@@ -310,11 +318,12 @@
       <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
     </div>
 
-    <!-- GAN 页面 -->
-    <div class="section" id="section8" style="animation-delay: 2.1s;">
+    <!-- GAN 页面，现为第9页 -->
+    <div class="section" id="section9" style="animation-delay: 2.4s;">
       <h1>GAN</h1>
       <p>好好吃饭，按时睡觉。</p>
       <p>家人闲坐，灯火可亲。</p>
+      <p>前路光明，一切顺利。</p>
       <div class="checkbox-container">
         <input type="checkbox" id="confirm3" onchange="enableNextButton('confirm3', 'nextButton4')"> 
         <label for="confirm3">已确认</label>
@@ -322,16 +331,16 @@
       <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
     </div>
 
-    <!-- DENG 页面 -->
-    <div class="section" id="section9" style="animation-delay: 2.4s;">
+    <!-- DENG 页面，现为第10页 -->
+    <div class="section" id="section10" style="animation-delay: 2.7s;">
       <h1>DENG</h1>
       <p>希君生羽翼,</p>
       <p>一化北冥鱼。</p>
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 图片展示页面 -->
-    <div class="section" id="section10" style="animation-delay: 2.7s;">
+    <!-- 图片展示页面，现为第11页 -->
+    <div class="section" id="section11" style="animation-delay: 3.0s;">
       <h1>特别的瞬间</h1>
       <p>这张很好看！📷摄影师@GAN</p>
       <p>图片加载失败就刷新或者换网络环境</p>
@@ -340,8 +349,8 @@
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 毕业祝福页面 -->
-    <div class="section" id="section11" style="animation-delay: 3.0s;">
+    <!-- 毕业祝福页面，现为第12页 -->
+    <div class="section" id="section12" style="animation-delay: 3.3s;">
       <h1>祝李老师毕业快乐！</h1>
       <p>开开心心，未来可期！🎉</p>
       <p>顺顺利利，学业有成！🎉</p>
@@ -350,8 +359,8 @@
       <canvas id="fireworksCanvas"></canvas>
     </div>
 
-    <!-- 制作人员页面 -->
-    <div class="section" id="section12" style="animation-delay: 3.3s;">
+    <!-- 制作人员页面，现为第13页 -->
+    <div class="section" id="section13" style="animation-delay: 3.6s;">
       <h1>制作人员</h1>
       <p>代码设计与开发: GAN</p>
       <p>动画改进与优化: GAN</p>
@@ -361,8 +370,8 @@
       <button onclick="nextSlide()">不要点我</button>
     </div>
 
-    <!-- 彩蛋页面 -->
-    <div class="section" id="section13" style="animation-delay: 3.6s;">
+    <!-- 彩蛋页面，现为第14页 -->
+    <div class="section" id="section14" style="animation-delay: 3.9s;">
       <h1>彩蛋</h1>
       <p>你发现了隐藏的彩蛋页面！</p>
       <p>我先想想这里放点什么照片</p>
@@ -377,18 +386,21 @@
 
   <script>
     let currentSection = 1;
-    const sections = document.querySelectorAll('.section');
+    const totalSections = 14; // 当前总页数
 
     function showSection(sectionNumber) {
+      const sections = document.querySelectorAll('.section');
       sections.forEach(section => {
         section.classList.remove('show');
         section.style.display = "none";
       });
       const current = document.getElementById(`section${sectionNumber}`);
-      current.style.display = "flex";
-      setTimeout(() => {
-        current.classList.add('show');
-      }, 100);
+      if(current){
+        current.style.display = "flex";
+        setTimeout(() => {
+          current.classList.add('show');
+        }, 100);
+      }
     }
 
     // 显示初始页面
@@ -402,20 +414,25 @@
       setTimeout(() => {
         current.style.display = "none";
         currentSection++;
+        if(currentSection > totalSections) return;
         const next = document.getElementById(`section${currentSection}`);
         next.style.display = "flex";
         setTimeout(() => {
           next.classList.add('show');
+          // 根据当前页面调用不同功能
           if (currentSection === 2) {
-            startSensor();
+            startGeolocation();
           }
           if (currentSection === 3) {
-            startCamera();
+            startSensor();
           }
           if (currentSection === 4) {
+            startCamera();
+          }
+          if (currentSection === 5) {
             startGame();
           }
-          if (currentSection === 11) {
+          if (currentSection === 12) {
             startFireworks();
           }
         }, 100);
@@ -557,6 +574,24 @@
           .catch(console.error);
       } else {
         window.addEventListener('devicemotion', deviceMotionHandler, false);
+      }
+    }
+
+    // 定位页面：调用手机定位并显示 Google 地图
+    function startGeolocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var lat = position.coords.latitude;
+          var lng = position.coords.longitude;
+          document.getElementById("locationStatus").innerText = "当前位置：" + lat.toFixed(6) + ", " + lng.toFixed(6);
+          var mapDiv = document.getElementById("map");
+          mapDiv.style.display = "block";
+          mapDiv.innerHTML = '<iframe width="100%" height="400" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=15&output=embed" allowfullscreen></iframe>';
+        }, function(error) {
+          document.getElementById("locationStatus").innerText = "获取位置失败：" + error.message;
+        });
+      } else {
+        document.getElementById("locationStatus").innerText = "浏览器不支持定位";
       }
     }
 
