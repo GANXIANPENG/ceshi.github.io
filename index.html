@@ -229,8 +229,8 @@
   </style>
 </head>
 <body>
-  <!-- 新增：启动页面，打字显示本站源代码，20秒后自动跳转 -->
-  <div id="splashScreen"></div>
+  <!-- 新增：启动页面，打字动画显示本站源代码，持续20秒后自动跳转 -->
+  <div id="splashScreen">加载中...</div>
 
   <div class="container" id="container">
     <!-- 首页 -->
@@ -348,4 +348,366 @@
       <p>前路光明，一切顺利。</p>
       <div class="checkbox-container">
         <input type="checkbox" id="confirm3" onchange="enableNextButton('confirm3', 'nextButton4')"> 
-        <label for="confirm3">已
+        <label for="confirm3">已确认</label>
+      </div>
+      <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
+    </div>
+
+    <!-- DENG 页面，现为第10页 -->
+    <div class="section" id="section10" style="animation-delay: 2.7s;">
+      <h1>DENG</h1>
+      <p>希君生羽翼,</p>
+      <p>一化北冥鱼。</p>
+      <button onclick="nextSlide()">下一页</button>
+    </div>
+
+    <!-- 图片展示页面，现为第11页 -->
+    <div class="section" id="section11" style="animation-delay: 3.0s;">
+      <h1>特别的瞬间</h1>
+      <p>这张很好看！📷摄影师@GAN</p>
+      <p>图片加载失败就刷新或者换网络环境</p>
+      <p>实在不行买台新手机</p>
+      <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="lbr吃饭照片合集">
+      <button onclick="nextSlide()">下一页</button>
+    </div>
+
+    <!-- 毕业祝福页面，现为第12页 -->
+    <div class="section" id="section12" style="animation-delay: 3.3s;">
+      <h1>祝李老师毕业快乐！</h1>
+      <p>开开心心，未来可期！🎉</p>
+      <p>顺顺利利，学业有成！🎉</p>
+      <button onclick="goToHome()">回到首页</button>
+      <button onclick="nextSlide()">查看制作人员名单</button>
+      <canvas id="fireworksCanvas"></canvas>
+    </div>
+
+    <!-- 制作人员页面，现为第13页 -->
+    <div class="section" id="section13" style="animation-delay: 3.6s;">
+      <h1>制作人员</h1>
+      <p>代码设计与开发: GAN</p>
+      <p>动画改进与优化: GAN</p>
+      <p>文字来源: GAN DENG</p>
+      <p>图片来源: GAN DENG</p>
+      <button onclick="prevSlide()">上一页</button>
+      <button onclick="nextSlide()">不要点我</button>
+    </div>
+
+    <!-- 彩蛋页面，现为第14页 -->
+    <div class="section" id="section14" style="animation-delay: 3.9s;">
+      <h1>彩蛋</h1>
+      <p>你发现了隐藏的彩蛋页面！</p>
+      <p>我先想想这里放点什么照片</p>
+      <button onclick="prevSlide()">上一页</button>
+      <button onclick="goToHome()">回到首页</button>
+    </div>
+
+    <div class="footer">
+      ©2025测试版 运行代码由 GAN 设计与开发
+    </div>
+  </div>
+
+  <script>
+    // 打字效果函数：根据总时长20秒和文本长度计算每个字符延迟
+    function typeWriter(text, element, totalDuration = 20000) {
+      element.textContent = "";
+      let i = 0;
+      const delay = totalDuration / text.length;
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, delay);
+        }
+      }
+      type();
+    }
+
+    // 启动页面：加载自身源代码并打字显示，20秒后移除启动页面
+    window.addEventListener('load', function() {
+      fetch(window.location.href)
+        .then(response => response.text())
+        .then(text => {
+          const splash = document.getElementById('splashScreen');
+          typeWriter(text, splash, 20000);
+        })
+        .catch(err => {
+          document.getElementById('splashScreen').textContent = "加载源代码失败：" + err;
+        });
+      setTimeout(() => {
+        const splash = document.getElementById('splashScreen');
+        if (splash) splash.remove();
+      }, 20000);
+    });
+
+    let currentSection = 1;
+    const totalSections = 14; // 当前总页数
+
+    function showSection(sectionNumber) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.classList.remove('show');
+        section.style.display = "none";
+      });
+      const current = document.getElementById(`section${sectionNumber}`);
+      if(current){
+        current.style.display = "flex";
+        setTimeout(() => {
+          current.classList.add('show');
+        }, 100);
+      }
+    }
+
+    // 显示初始页面
+    showSection(currentSection);
+    // 启动首页烟花效果
+    startFireworks("fireworksCanvasFirst");
+
+    function nextSlide() {
+      const current = document.getElementById(`section${currentSection}`);
+      current.classList.remove('show');
+      setTimeout(() => {
+        current.style.display = "none";
+        currentSection++;
+        if(currentSection > totalSections) return;
+        const next = document.getElementById(`section${currentSection}`);
+        next.style.display = "flex";
+        setTimeout(() => {
+          next.classList.add('show');
+          // 根据当前页面调用不同功能
+          if (currentSection === 2) {
+            startGeolocation();
+          }
+          if (currentSection === 3) {
+            startSensor();
+          }
+          if (currentSection === 4) {
+            startCamera();
+          }
+          if (currentSection === 5) {
+            startGame();
+          }
+          if (currentSection === 12) {
+            startFireworks();
+          }
+        }, 100);
+        window.scrollTo(0, 0);
+      }, 300);
+    }
+
+    function prevSlide() {
+      const current = document.getElementById(`section${currentSection}`);
+      current.classList.remove('show');
+      setTimeout(() => {
+        current.style.display = "none";
+        currentSection--;
+        const prev = document.getElementById(`section${currentSection}`);
+        prev.style.display = "flex";
+        setTimeout(() => {
+          prev.classList.add('show');
+        }, 100);
+        window.scrollTo(0, 0);
+      }, 300);
+    }
+
+    function goToHome() {
+      const current = document.getElementById(`section${currentSection}`);
+      current.classList.remove('show');
+      setTimeout(() => {
+        current.style.display = "none";
+        currentSection = 1;
+        const home = document.getElementById(`section${currentSection}`);
+        home.style.display = "flex";
+        setTimeout(() => {
+          home.classList.add('show');
+        }, 100);
+        window.scrollTo(0, 0);
+        startFireworks("fireworksCanvasFirst");
+      }, 300);
+    }
+
+    function enableNextButton(checkboxId, buttonId) {
+      document.getElementById(buttonId).disabled = !document.getElementById(checkboxId).checked;
+    }
+
+    function validatePassword() {
+      document.getElementById("nextButton2").disabled = document.getElementById("passwordInput").value !== "04240417";
+    }
+
+    function handleEnter(event) {
+      if (event.key === "Enter") validatePassword();
+    }
+
+    // 小游戏相关代码
+    let gameScore = 0;
+    let gameTime = 10;
+    let gameTimer;
+
+    function startGame() {
+      gameScore = 0;
+      gameTime = 10;
+      document.getElementById("scoreDisplay").innerText = gameScore;
+      document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
+      document.getElementById("gameButton").disabled = false;
+      document.getElementById("nextButtonGame").style.display = "none";
+      if (gameTimer) clearInterval(gameTimer);
+      gameTimer = setInterval(() => {
+        gameTime--;
+        document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
+        if (gameTime <= 0) {
+          clearInterval(gameTimer);
+          endGame();
+        }
+      }, 1000);
+    }
+
+    function gameClick() {
+      gameScore++;
+      document.getElementById("scoreDisplay").innerText = gameScore;
+    }
+
+    function endGame() {
+      document.getElementById("gameButton").disabled = true;
+      document.getElementById("nextButtonGame").style.display = "inline-block";
+    }
+
+    // 摄像头调用代码
+    function startCamera() {
+      const video = document.getElementById('video');
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function(stream) {
+            video.srcObject = stream;
+            video.play();
+          })
+          .catch(function(err) {
+            console.error("调用摄像头失败: ", err);
+          });
+      } else {
+        console.error("浏览器不支持调用摄像头");
+      }
+    }
+
+    function capturePhoto() {
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('photoCanvas');
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.style.display = "block";
+    }
+
+    // 更新后的传感器互动代码：摇晃手机显示祝福，阈值设为45并请求 iOS 权限
+    function startSensor() {
+      let sensorTriggered = false;
+      function deviceMotionHandler(event) {
+        if (sensorTriggered) return;
+        const acceleration = event.accelerationIncludingGravity;
+        if (!acceleration) return;
+        const totalAcc = Math.sqrt(
+          (acceleration.x || 0) ** 2 +
+          (acceleration.y || 0) ** 2 +
+          (acceleration.z || 0) ** 2
+        );
+        // 阈值设为45，更灵敏
+        if (totalAcc > 45) {
+          sensorTriggered = true;
+          document.getElementById("blessingText").style.display = "block";
+          document.getElementById("nextButtonSensor").disabled = false;
+          window.removeEventListener('devicemotion', deviceMotionHandler);
+        }
+      }
+      // 针对 iOS 13+ 请求权限
+      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission()
+          .then(response => {
+            if (response === 'granted') {
+              window.addEventListener('devicemotion', deviceMotionHandler, false);
+            } else {
+              console.log("设备传感器权限被拒绝");
+            }
+          })
+          .catch(console.error);
+      } else {
+        window.addEventListener('devicemotion', deviceMotionHandler, false);
+      }
+    }
+
+    // 定位页面：调用手机定位并显示 Google 地图
+    function startGeolocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var lat = position.coords.latitude;
+          var lng = position.coords.longitude;
+          document.getElementById("locationStatus").innerText = "当前位置：" + lat.toFixed(6) + ", " + lng.toFixed(6);
+          var mapDiv = document.getElementById("map");
+          mapDiv.style.display = "block";
+          mapDiv.innerHTML = '<iframe width="100%" height="400" frameborder="0" style="border:0; position:relative; z-index:1;" src="https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=15&output=embed" allowfullscreen></iframe>';
+        }, function(error) {
+          document.getElementById("locationStatus").innerText = "获取位置失败：" + error.message;
+        });
+      } else {
+        document.getElementById("locationStatus").innerText = "浏览器不支持定位";
+      }
+    }
+
+    function startFireworks(canvasId = "fireworksCanvas") {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) {
+        console.error("Canvas 元素未找到: " + canvasId);
+        return;
+      }
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const particles = [];
+      function Particle(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 4 - 2;
+        this.speedY = Math.random() * 4 - 2;
+        this.opacity = 1;
+      }
+      Particle.prototype.update = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.opacity -= 0.02;
+      };
+      Particle.prototype.draw = function() {
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      };
+      
+      function createFirework(x, y) {
+        const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
+        for (let i = 0; i < 50; i++) {
+          particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+        }
+      }
+      
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw();
+          if (particles[i].opacity <= 0) {
+            particles.splice(i, 1);
+            i--;
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      
+      setInterval(() => {
+        createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
+      }, 500);
+      
+      animate();
+    }
+  </script>
+</body>
+</html>
