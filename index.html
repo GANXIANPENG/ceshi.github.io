@@ -400,8 +400,6 @@
       const current = document.getElementById(`section${sectionNumber}`);
       if(current){
         current.style.display = "flex";
-        // 强制回流确保动画效果
-        void current.offsetWidth;
         setTimeout(() => {
           current.classList.add('show');
         }, 100);
@@ -416,66 +414,64 @@
     function nextSlide() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
-      current.addEventListener('transitionend', function handler(e) {
-        if (e.propertyName !== 'opacity') return;
-        current.removeEventListener('transitionend', handler);
+      setTimeout(() => {
         current.style.display = "none";
         currentSection++;
         if(currentSection > totalSections) return;
         const next = document.getElementById(`section${currentSection}`);
         next.style.display = "flex";
-        void next.offsetWidth;
-        next.classList.add('show');
-        if (currentSection === 2) {
-          startGeolocation();
-        }
-        if (currentSection === 3) {
-          startSensor();
-        }
-        if (currentSection === 4) {
-          startCamera();
-        }
-        if (currentSection === 5) {
-          startGame();
-        }
-        if (currentSection === 12) {
-          startFireworks();
-        }
+        setTimeout(() => {
+          next.classList.add('show');
+          // 根据当前页面调用不同功能
+          if (currentSection === 2) {
+            startGeolocation();
+          }
+          if (currentSection === 3) {
+            startSensor();
+          }
+          if (currentSection === 4) {
+            startCamera();
+          }
+          if (currentSection === 5) {
+            startGame();
+          }
+          if (currentSection === 12) {
+            startFireworks();
+          }
+        }, 100);
         window.scrollTo(0, 0);
-      });
+      }, 300);
     }
 
     function prevSlide() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
-      current.addEventListener('transitionend', function handler(e) {
-        if (e.propertyName !== 'opacity') return;
-        current.removeEventListener('transitionend', handler);
+      setTimeout(() => {
         current.style.display = "none";
         currentSection--;
         const prev = document.getElementById(`section${currentSection}`);
         prev.style.display = "flex";
-        void prev.offsetWidth;
-        prev.classList.add('show');
+        setTimeout(() => {
+          prev.classList.add('show');
+        }, 100);
         window.scrollTo(0, 0);
-      });
+      }, 300);
     }
 
     function goToHome() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
-      current.addEventListener('transitionend', function handler(e) {
-        if (e.propertyName !== 'opacity') return;
-        current.removeEventListener('transitionend', handler);
+      setTimeout(() => {
         current.style.display = "none";
         currentSection = 1;
         const home = document.getElementById(`section${currentSection}`);
         home.style.display = "flex";
-        void home.offsetWidth;
-        home.classList.add('show');
+        setTimeout(() => {
+          home.classList.add('show');
+        }, 100);
         window.scrollTo(0, 0);
         startFireworks("fireworksCanvasFirst");
-      });
+      }, 300);
     }
 
     function enableNextButton(checkboxId, buttonId) {
