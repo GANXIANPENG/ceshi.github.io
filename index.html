@@ -11,7 +11,7 @@
       --white-bg: rgba(255, 255, 255, 0.2);
       --transition-duration: 0.5s;
     }
-    /* 新增：启动页面样式 */
+    /* 新增：启动页面样式，设置overflow-y为auto以支持滚动 */
     #splashScreen {
       position: fixed;
       top: 0;
@@ -20,7 +20,7 @@
       height: 100%;
       background: #000;
       color: #fff;
-      overflow: hidden;
+      overflow-y: auto;
       z-index: 9999;
       padding: 20px;
       box-sizing: border-box;
@@ -407,7 +407,7 @@
   </div>
 
   <script>
-    // 打字效果函数：根据总时长20秒和文本长度计算每个字符延迟
+    // 打字效果函数：根据总时长20秒和文本长度计算每个字符延迟，同时自动滚动
     function typeWriter(text, element, totalDuration = 20000) {
       element.textContent = "";
       let i = 0;
@@ -415,6 +415,8 @@
       function type() {
         if (i < text.length) {
           element.textContent += text.charAt(i);
+          // 每次添加字符后自动滚动到底部
+          element.scrollTop = element.scrollHeight;
           i++;
           setTimeout(type, delay);
         }
