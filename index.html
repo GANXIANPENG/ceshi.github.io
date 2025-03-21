@@ -9,7 +9,7 @@
       --primary-color: #2193b0;
       --secondary-color: #6dd5ed;
       --white-bg: rgba(255, 255, 255, 0.2);
-      --transition-duration: 0.5s;
+      --transition-duration: 0.4s;
     }
     /* 新增：启动页面样式，设置overflow-y为auto以支持滚动 */
     #splashScreen {
@@ -53,7 +53,7 @@
       position: relative;
       z-index: 1;
     }
-    /* 每个页面占满全屏，并居中 */
+    /* 每个页面占满全屏，并居中，同时新增半透明背景、圆角及阴影提升美观 */
     .section {
       width: 90%;
       max-width: 800px;
@@ -64,31 +64,28 @@
       justify-content: center;
       align-items: center;
       color: #fff;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       opacity: 0;
-      transform: translateY(20px);
+      transform: translate3d(0,20px,0);
       transition: opacity var(--transition-duration) ease, transform var(--transition-duration) ease;
     }
-    /* 进入时的弹跳动画效果 */
-    @keyframes bounceInUp {
-      0% {
+    /* 平滑淡入上移动画 */
+    @keyframes fadeInUp {
+      from {
         opacity: 0;
-        transform: translateY(100%);
+        transform: translate3d(0,20px,0);
       }
-      60% {
+      to {
         opacity: 1;
-        transform: translateY(-10%);
-      }
-      80% {
-        transform: translateY(5%);
-      }
-      100% {
-        transform: translateY(0);
+        transform: translate3d(0,0,0);
       }
     }
     .section.show {
-      opacity: 1;
-      transform: translateY(0);
-      animation: bounceInUp 0.6s ease-out;
+      display: flex;
+      animation: fadeInUp 0.4s ease-out forwards;
     }
     /* 标题淡入下落动画 */
     @keyframes fadeInDown {
