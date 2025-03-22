@@ -299,10 +299,10 @@
       <div class="progress-container">
         <div class="progress-bar"></div>
       </div>
-      <p>点击下方按钮以加速</p>
+      <p>点击按钮以加速</p>
       <p>点击次数：<span id="scoreDisplay">0</span></p>
       <button id="gameButton" onclick="gameClick()">点我加速</button>
-      <p id="timerDisplay">时间剩余: 10秒</p>
+      <p id="timerDisplay">时间剩余: 25秒</p>
       <button onclick="nextSlide()" id="nextButtonGame" style="display:none;">下一页</button>
     </div>
 
@@ -547,12 +547,12 @@
 
     // 小游戏相关代码
     let gameScore = 0;
-    let gameTime = 10;
+    let gameTime = 25; // 修改为25秒
     let gameTimer;
 
     function startGame() {
       gameScore = 0;
-      gameTime = 10;
+      gameTime = 25; // 初始化为25秒
       document.getElementById("scoreDisplay").innerText = gameScore;
       document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
       document.getElementById("gameButton").disabled = false;
