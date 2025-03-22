@@ -6,8 +6,8 @@
   <title>祝李老师毕业快乐！</title>
   <style>
     :root {
-      --primary-color: #87CEEB;
-      --secondary-color: #B0E0E6;
+      --primary-color: #00bfff; /* 天蓝色 */
+      --secondary-color: #87cefa; /* 浅天蓝 */
       --white-bg: rgba(255, 255, 255, 0.2);
       --transition-duration: 0.4s;
     }
@@ -223,6 +223,15 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    /* 限制拍照预览画布的显示尺寸，防止遮挡下一页按钮 */
+    #photoCanvas {
+      max-width: 320px;
+      max-height: 240px;
+      width: auto;
+      height: auto;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -274,7 +283,7 @@
       <video id="video" width="320" height="240" autoplay playsinline style="border:1px solid #ccc;"></video>
       <br>
       <button id="captureButton" onclick="capturePhoto()">拍照</button>
-      <canvas id="photoCanvas" width="320" height="240" style="display:none; border:1px solid #ccc; margin-top:10px;"></canvas>
+      <canvas id="photoCanvas" width="320" height="240" style="display:none;"></canvas>
       <br>
       <button onclick="nextSlide()">下一页</button>
     </div>
@@ -491,7 +500,7 @@
           }
         }, 100);
         window.scrollTo(0, 0);
-      }, 300);
+      }, 100);
     }
 
     function prevSlide() {
@@ -506,7 +515,7 @@
           prev.classList.add('show');
         }, 100);
         window.scrollTo(0, 0);
-      }, 300);
+      }, 100);
     }
 
     function goToHome() {
@@ -522,7 +531,7 @@
         }, 100);
         window.scrollTo(0, 0);
         startFireworks("fireworksCanvasFirst");
-      }, 300);
+      }, 100);
     }
 
     function enableNextButton(checkboxId, buttonId) {
@@ -587,10 +596,14 @@
       }
     }
 
+    // 修改后的拍照函数，先设置 canvas 尺寸以匹配 video 的实际比例
     function capturePhoto() {
       const video = document.getElementById('video');
       const canvas = document.getElementById('photoCanvas');
       const context = canvas.getContext('2d');
+      // 根据 video 实际视频尺寸设置 canvas 内部分辨率
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       canvas.style.display = "block";
     }
