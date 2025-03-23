@@ -476,9 +476,10 @@
       const current = document.getElementById(`section${sectionNumber}`);
       if(current){
         current.style.display = "flex";
-        setTimeout(() => {
+        // 使用 requestAnimationFrame 触发重排后添加动画类
+        requestAnimationFrame(() => {
           current.classList.add('show');
-        }, 100);
+        });
       }
     }
 
@@ -489,65 +490,68 @@
 
     function nextSlide() {
       const current = document.getElementById(`section${currentSection}`);
+      // 移除动画类，开始淡出
       current.classList.remove('show');
-      setTimeout(() => {
+      // 监听过渡结束事件后再隐藏当前页并显示下一页
+      current.addEventListener('transitionend', function handler() {
         current.style.display = "none";
+        current.removeEventListener('transitionend', handler);
         currentSection++;
         if(currentSection > totalSections) return;
         const next = document.getElementById(`section${currentSection}`);
         next.style.display = "flex";
-        setTimeout(() => {
-          next.classList.add('show');
-          // 根据当前页面调用不同功能
-          if (currentSection === 2) {
-            startGeolocation();
-          }
-          if (currentSection === 3) {
-            startSensor();
-          }
-          if (currentSection === 4) {
-            startCamera();
-          }
-          if (currentSection === 5) {
-            startGame();
-          }
-          if (currentSection === 12) {
-            startFireworks();
-          }
-        }, 100);
+        // 强制重排确保动画触发
+        void next.offsetWidth;
+        next.classList.add('show');
+        // 根据当前页面调用不同功能
+        if (currentSection === 2) {
+          startGeolocation();
+        }
+        if (currentSection === 3) {
+          startSensor();
+        }
+        if (currentSection === 4) {
+          startCamera();
+        }
+        if (currentSection === 5) {
+          startGame();
+        }
+        if (currentSection === 12) {
+          startFireworks();
+        }
         window.scrollTo(0, 0);
-      }, 100);
+      });
     }
 
     function prevSlide() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
-      setTimeout(() => {
+      current.addEventListener('transitionend', function handler() {
         current.style.display = "none";
+        current.removeEventListener('transitionend', handler);
         currentSection--;
         const prev = document.getElementById(`section${currentSection}`);
         prev.style.display = "flex";
-        setTimeout(() => {
-          prev.classList.add('show');
-        }, 100);
+        void prev.offsetWidth;
+        prev.classList.add('show');
         window.scrollTo(0, 0);
-      }, 100);
+      });
     }
 
     function goToHome() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
-      setTimeout(() => {
+      current.addEventListener('transitionend', function handler() {
         current.style.display = "none";
+        current.removeEventListener('transitionend', handler);
         currentSection = 1;
         const home = document.getElementById(`section${currentSection}`);
         home.style.display = "flex";
-        setTimeout(() => {
-          home.classList.add('show');
-        }, 100);
+        void home.offsetWidth;
+        home.classList.add('show');
         window.scrollTo(0, 0);
         startFireworks("fireworksCanvasFirst");
-      }, 100);
+      });
     }
 
     function enableNextButton(checkboxId, buttonId) {
