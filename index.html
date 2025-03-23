@@ -267,7 +267,7 @@
       <p>4：GPU加速translate3d运行缓慢</p>
       <p>请给予网页所有手机权限</p>
       <p>支持iOS16+版本号ay6fh41</p>
-      
+
       <button onclick="nextSlide()">下一页</button>
       <!-- 烟花 canvas -->
       <canvas id="fireworksCanvasFirst"></canvas>
@@ -476,10 +476,9 @@
       const current = document.getElementById(`section${sectionNumber}`);
       if(current){
         current.style.display = "flex";
-        // 使用 requestAnimationFrame 触发重排后添加动画类
-        requestAnimationFrame(() => {
+        setTimeout(() => {
           current.classList.add('show');
-        });
+        }, 100);
       }
     }
 
@@ -490,68 +489,65 @@
 
     function nextSlide() {
       const current = document.getElementById(`section${currentSection}`);
-      // 移除动画类，开始淡出
       current.classList.remove('show');
-      // 监听过渡结束事件后再隐藏当前页并显示下一页
-      current.addEventListener('transitionend', function handler() {
+      setTimeout(() => {
         current.style.display = "none";
-        current.removeEventListener('transitionend', handler);
         currentSection++;
         if(currentSection > totalSections) return;
         const next = document.getElementById(`section${currentSection}`);
         next.style.display = "flex";
-        // 强制重排确保动画触发
-        void next.offsetWidth;
-        next.classList.add('show');
-        // 根据当前页面调用不同功能
-        if (currentSection === 2) {
-          startGeolocation();
-        }
-        if (currentSection === 3) {
-          startSensor();
-        }
-        if (currentSection === 4) {
-          startCamera();
-        }
-        if (currentSection === 5) {
-          startGame();
-        }
-        if (currentSection === 12) {
-          startFireworks();
-        }
+        setTimeout(() => {
+          next.classList.add('show');
+          // 根据当前页面调用不同功能
+          if (currentSection === 2) {
+            startGeolocation();
+          }
+          if (currentSection === 3) {
+            startSensor();
+          }
+          if (currentSection === 4) {
+            startCamera();
+          }
+          if (currentSection === 5) {
+            startGame();
+          }
+          if (currentSection === 12) {
+            startFireworks();
+          }
+        }, 100);
         window.scrollTo(0, 0);
-      });
+      }, 100);
     }
 
     function prevSlide() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
-      current.addEventListener('transitionend', function handler() {
+      setTimeout(() => {
         current.style.display = "none";
-        current.removeEventListener('transitionend', handler);
         currentSection--;
         const prev = document.getElementById(`section${currentSection}`);
         prev.style.display = "flex";
-        void prev.offsetWidth;
-        prev.classList.add('show');
+        setTimeout(() => {
+          prev.classList.add('show');
+        }, 100);
         window.scrollTo(0, 0);
-      });
+      }, 100);
     }
 
     function goToHome() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
-      current.addEventListener('transitionend', function handler() {
+      setTimeout(() => {
         current.style.display = "none";
-        current.removeEventListener('transitionend', handler);
         currentSection = 1;
         const home = document.getElementById(`section${currentSection}`);
         home.style.display = "flex";
-        void home.offsetWidth;
-        home.classList.add('show');
+        setTimeout(() => {
+          home.classList.add('show');
+        }, 100);
         window.scrollTo(0, 0);
         startFireworks("fireworksCanvasFirst");
-      });
+      }, 100);
     }
 
     function enableNextButton(checkboxId, buttonId) {
@@ -691,7 +687,7 @@
       const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      
+
       const particles = [];
       function Particle(x, y, color) {
         this.x = x;
@@ -714,14 +710,14 @@
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       };
-      
+
       function createFirework(x, y) {
         const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
         for (let i = 0; i < 50; i++) {
           particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
         }
       }
-      
+
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < particles.length; i++) {
@@ -734,11 +730,11 @@
         }
         requestAnimationFrame(animate);
       }
-      
+
       setInterval(() => {
         createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
       }, 500);
-      
+
       animate();
     }
   </script>
