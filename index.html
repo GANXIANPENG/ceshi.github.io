@@ -279,6 +279,11 @@
       <div id="mapWrapper" style="width:100%; margin:20px 0; position:relative;">
         <div id="map" style="width:100%; height:400px; display:none;"></div>
       </div>
+      <!-- 新增：申请访问手机通讯录及相册的按钮 -->
+      <div style="margin-top:20px;">
+        <button onclick="requestContacts()">申请访问通讯录</button>
+        <button onclick="requestPhotos()">申请访问相册</button>
+      </div>
       <!-- 为保证按钮显示在地图上层，加了内联样式 -->
       <button onclick="nextSlide()" style="position:relative; z-index:2;">下一页</button>
     </div>
@@ -679,6 +684,39 @@
       } else {
         document.getElementById("locationStatus").innerText = "浏览器不支持定位";
       }
+    }
+
+    // 新增：申请访问通讯录
+    function requestContacts() {
+      if ('contacts' in navigator && 'ContactsManager' in window) {
+        const props = ['name', 'tel', 'email'];
+        const opts = {multiple: true};
+        navigator.contacts.select(props, opts)
+          .then(contacts => {
+            console.log("已选择的联系人：", contacts);
+            alert("通讯录访问成功！");
+          })
+          .catch(err => {
+            console.error("访问通讯录失败：", err);
+            alert("访问通讯录失败！");
+          });
+      } else {
+        alert("当前浏览器不支持访问通讯录API。");
+      }
+    }
+
+    // 新增：申请访问相册（使用文件输入模拟选择图片）
+    function requestPhotos() {
+      let input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.multiple = true;
+      input.onchange = e => {
+        let files = e.target.files;
+        console.log("已选择的图片：", files);
+        alert("相册访问成功！");
+      };
+      input.click();
     }
 
     function startFireworks(canvasId = "fireworksCanvas") {
