@@ -96,6 +96,20 @@
       display: flex;
       animation: fadeInUp 0.4s ease-out forwards;
     }
+    /* 新增：淡出下落动画 */
+    @keyframes fadeOutDown {
+      from {
+        opacity: 1;
+        transform: translate3d(0,0,0);
+      }
+      to {
+        opacity: 0;
+        transform: translate3d(0,20px,0);
+      }
+    }
+    .section.hide {
+      animation: fadeOutDown var(--transition-duration) ease-out forwards;
+    }
     /* 标题淡入下落动画 */
     @keyframes fadeInDown {
       0% {
@@ -490,8 +504,10 @@
     function nextSlide() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
+      current.classList.add('hide');
       setTimeout(() => {
         current.style.display = "none";
+        current.classList.remove('hide');
         currentSection++;
         if(currentSection > totalSections) return;
         const next = document.getElementById(`section${currentSection}`);
@@ -514,40 +530,44 @@
           if (currentSection === 12) {
             startFireworks();
           }
-        }, 100);
+        }, 50);
         window.scrollTo(0, 0);
-      }, 100);
+      }, 400);
     }
 
     function prevSlide() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
+      current.classList.add('hide');
       setTimeout(() => {
         current.style.display = "none";
+        current.classList.remove('hide');
         currentSection--;
         const prev = document.getElementById(`section${currentSection}`);
         prev.style.display = "flex";
         setTimeout(() => {
           prev.classList.add('show');
-        }, 100);
+        }, 50);
         window.scrollTo(0, 0);
-      }, 100);
+      }, 400);
     }
 
     function goToHome() {
       const current = document.getElementById(`section${currentSection}`);
       current.classList.remove('show');
+      current.classList.add('hide');
       setTimeout(() => {
         current.style.display = "none";
+        current.classList.remove('hide');
         currentSection = 1;
         const home = document.getElementById(`section${currentSection}`);
         home.style.display = "flex";
         setTimeout(() => {
           home.classList.add('show');
-        }, 100);
+        }, 50);
         window.scrollTo(0, 0);
         startFireworks("fireworksCanvasFirst");
-      }, 100);
+      }, 400);
     }
 
     function enableNextButton(checkboxId, buttonId) {
