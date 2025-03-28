@@ -2,14 +2,14 @@
 <html lang="zh-CN">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5V9S2Q8DBF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V9S2Q8DBF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-5V9S2Q8DBF');
-</script>
+    gtag('config', 'G-5V9S2Q8DBF');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>祝李老师毕业快乐！</title>
@@ -135,7 +135,7 @@
       animation: fadeInDown 1s ease-out;
     }
     /* 首页和毕业祝福页面标题置于烟花之上 */
-    #section1 h1, #section12 h1 {
+    #section1 h1, #section14 h1 {
       position: relative;
       z-index: 2;
     }
@@ -258,14 +258,14 @@
   </style>
 </head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5V9S2Q8DBF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V9S2Q8DBF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-5V9S2Q8DBF');
-</script>
+    gtag('config', 'G-5V9S2Q8DBF');
+  </script>
 <body>
   <!-- 新增：启动页面，打字动画显示本站源代码，持续20秒后自动跳转 -->
   <div id="splashScreen">加载中...</div>
@@ -274,21 +274,35 @@
     <!-- 首页 -->
     <div class="section" id="section1">
       <h1>祝李老师毕业快乐！🎓🎉</h1>
-      <p>已知问题</p>
-      <p>1：传感器持续运行</p>
-      <p>2：GPU渲染可能过载</p>
-      <p>3：谷歌服务器链接不稳定</p>
-      <p>4：GPU加速translate3d运行缓慢</p>
-      <p>请给予网页所有手机权限</p>
-      <p>支持iOS16+版本号qsn26b</p>
+      <p>From 甘弦朋 邓杰</p>
+      <p>Website start time 2025/3/16</p>
+      <p>Last updated time  2025/3/28</p>
+      <p>请给予手机所有权限</p>
+      <p>否则无法进行下一步</p>
+      <p>*仅支持iOS16以上版本*</p>
 
       <button onclick="nextSlide()">下一页</button>
       <!-- 烟花 canvas -->
       <canvas id="fireworksCanvasFirst"></canvas>
     </div>
 
-    <!-- 定位页面（插入在首页后） -->
+    <!-- 新增页面1：请输入您的名字 -->
     <div class="section" id="section2" style="animation-delay: 0.3s;">
+      <h1>请输入您的名字</h1>
+      <div class="input-container">
+        <input type="text" id="nameInput" placeholder="在此输入姓名">
+      </div>
+      <button onclick="saveName(); nextSlide()">下一页</button>
+    </div>
+
+    <!-- 新增页面2：显示欢迎信息 -->
+    <div class="section" id="section3" style="animation-delay: 0.6s;">
+      <h1 id="greetingTitle">欢迎你，访客!</h1>
+      <button onclick="nextSlide()">下一页</button>
+    </div>
+
+    <!-- 原定位页面，原section2调整为section4 -->
+    <div class="section" id="section4" style="animation-delay: 0.9s;">
       <h1>先看一下你在哪里</h1>
       <p id="locationStatus">正在获取您的位置...</p>
       <div id="mapWrapper" style="width:100%; margin:20px 0; position:relative;">
@@ -298,17 +312,16 @@
       <button onclick="nextSlide()" style="position:relative; z-index:2;">下一页</button>
     </div>
 
-    <!-- 原摇手机互动页面，现顺延为第3页 -->
-    <div class="section" id="section3" style="animation-delay: 0.6s;">
+    <!-- 原摇手机互动页面，原section3调整为section5 -->
+    <div class="section" id="section5" style="animation-delay: 1.2s;">
       <h1>试试摇一摇手机</h1>
-      <p>不给予权限无法检测以进行下一步</p>
       <p id="blessingText" style="display: none;">毕业不是终点，而是一个新的起点。
      前路光明，一切顺利。</p>
       <button id="nextButtonSensor" onclick="nextSlide()" disabled>下一页</button>
     </div>
 
-    <!-- 电子合照页面，现为第4页 -->
-    <div class="section" id="section4" style="animation-delay: 0.9s;">
+    <!-- 原电子合照页面，原section4调整为section6 -->
+    <div class="section" id="section6" style="animation-delay: 1.5s;">
       <h1>拍个照</h1>
       <p>请允许调用摄像头进行拍照</p>
       <video id="video" width="320" height="240" autoplay playsinline style="border:1px solid #ccc;"></video>
@@ -319,8 +332,8 @@
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 小游戏页面，现为第5页 -->
-    <div class="section" id="section5" style="animation-delay: 1.2s;">
+    <!-- 原小游戏页面，原section5调整为section7 -->
+    <div class="section" id="section7" style="animation-delay: 1.8s;">
       <h1>等待时活动下手指</h1>
       <p>等待数据上传谷歌云服务器..</p>
       <div class="progress-container">
@@ -337,10 +350,10 @@
       <button onclick="nextSlide()" id="nextButtonGame" style="display:none;">下一页</button>
     </div>
 
-    <!-- 人机验证页面，现为第6页 -->
-    <div class="section" id="section6" style="animation-delay: 1.5s;">
+    <!-- 原人机验证页面，原section6调整为section8 -->
+    <div class="section" id="section8" style="animation-delay: 2.1s;">
       <h1>人机验证注意</h1>
-      <p>我确认，我已进行了必要的隐私披露声明并获得了最终用户授权，可收集最终用户的数据并进行相关处理，包括将此类数据与 Google Analytics 从我的网站和/或应用媒体资源收集的访问信息相关联。</p>
+      <p>我确认，我已知晓了必要的隐私披露声明并给予最终用户授权，同意网站所有者收集用户的数据并进行相关处理，包括将此类数据与 Google Analytics 从网站和/或应用媒体资源收集的访问信息相关联。</p>
       <p>点击即代表您同意上述内容</p>
       <div class="checkbox-container">
         <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
@@ -349,19 +362,19 @@
       <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
     </div>
 
-    <!-- 密码验证页面，现为第7页 -->
-    <div class="section" id="section7" style="animation-delay: 1.8s;">
+    <!-- 原密码验证页面，原section7调整为section9 -->
+    <div class="section" id="section9" style="animation-delay: 2.4s;">
       <h1>请输入密码</h1>
       <p>*因为买不起私人服务器所以用公共网络搭建*</p>
       <p>*为避免此公共网站遭受恶意攻击登录所以设置密码*</p>
       <div class="input-container">
-        <input type="password" id="passwordInput" placeholder="test密码04240417" oninput="validatePassword()" onkeypress="handleEnter(event)">
+        <input type="password" id="passwordInput" placeholder="在此输入密码" oninput="validatePassword()" onkeypress="handleEnter(event)">
       </div>
       <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
     </div>
 
-    <!-- 回忆成就页面，现为第8页 -->
-    <div class="section" id="section8" style="animation-delay: 2.1s;">
+    <!-- 原回忆成就页面，原section8调整为section10 -->
+    <div class="section" id="section10" style="animation-delay: 2.7s;">
       <h1>回忆成就</h1>
       <p>声乐部门公认的唱歌第一</p>
       <p>钢琴部门弹钢琴第一</p>
@@ -377,8 +390,8 @@
       <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
     </div>
 
-    <!-- GAN 页面，现为第9页 -->
-    <div class="section" id="section9" style="animation-delay: 2.4s;">
+    <!-- 原GAN页面，原section9调整为section11 -->
+    <div class="section" id="section11" style="animation-delay: 3.0s;">
       <h1>GAN</h1>
       <p>好好吃饭，按时睡觉。</p>
       <p>家人闲坐，灯火可亲。</p>
@@ -390,16 +403,16 @@
       <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
     </div>
 
-    <!-- DENG 页面，现为第10页 -->
-    <div class="section" id="section10" style="animation-delay: 2.7s;">
+    <!-- 原DENG页面，原section10调整为section12 -->
+    <div class="section" id="section12" style="animation-delay: 3.3s;">
       <h1>DENG</h1>
       <p>希君生羽翼,</p>
       <p>一化北冥鱼。</p>
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 图片展示页面，现为第11页 -->
-    <div class="section" id="section11" style="animation-delay: 3.0s;">
+    <!-- 原图片展示页面，原section11调整为section13 -->
+    <div class="section" id="section13" style="animation-delay: 3.6s;">
       <h1>特别的瞬间</h1>
       <p>这张很好看！📷摄影师@GAN</p>
       <p>图片加载失败就刷新或者换网络环境</p>
@@ -408,8 +421,8 @@
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 毕业祝福页面，现为第12页 -->
-    <div class="section" id="section12" style="animation-delay: 3.3s;">
+    <!-- 原毕业祝福页面，原section12调整为section14 -->
+    <div class="section" id="section14" style="animation-delay: 3.9s;">
       <h1>祝李老师毕业快乐！</h1>
       <p>开开心心，未来可期！🎉</p>
       <p>顺顺利利，学业有成！🎉</p>
@@ -418,8 +431,8 @@
       <canvas id="fireworksCanvas"></canvas>
     </div>
 
-    <!-- 制作人员页面，现为第13页 -->
-    <div class="section" id="section13" style="animation-delay: 3.6s;">
+    <!-- 原制作人员页面，原section13调整为section15 -->
+    <div class="section" id="section15" style="animation-delay: 4.2s;">
       <h1>制作人员</h1>
       <p>代码设计与开发: GAN</p>
       <p>动画改进与优化: GAN</p>
@@ -429,8 +442,8 @@
       <button onclick="nextSlide()">不要点我</button>
     </div>
 
-    <!-- 彩蛋页面，现为第14页 -->
-    <div class="section" id="section14" style="animation-delay: 3.9s;">
+    <!-- 原彩蛋页面，原section14调整为section16 -->
+    <div class="section" id="section16" style="animation-delay: 4.5s;">
       <h1>彩蛋</h1>
       <p>你发现了隐藏的彩蛋页面！</p>
       <p>我先想想这里放点什么照片</p>
@@ -439,11 +452,14 @@
     </div>
 
     <div class="footer">
-      ©2025测试版 运行代码由 GAN 设计与开发
+      ©2025 运行代码由 GAN 设计与开发
     </div>
   </div>
 
   <script>
+    // 全局变量，用于存储用户输入的姓名
+    let userName = "";
+
     // 打字效果函数：根据总时长20秒和文本长度计算每个字符延迟，同时自动滚动
     function typeWriter(text, element, totalDuration = 20000) {
       element.textContent = "";
@@ -479,7 +495,7 @@
     });
 
     let currentSection = 1;
-    const totalSections = 14; // 当前总页数
+    const totalSections = 16; // 修改后总页数为16
 
     function showSection(sectionNumber) {
       const sections = document.querySelectorAll('.section');
@@ -492,6 +508,10 @@
         current.style.display = "flex";
         setTimeout(() => {
           current.classList.add('show');
+          // 如果是新页面3，则根据之前输入的姓名更新欢迎标题
+          if (sectionNumber === 3) {
+            document.getElementById('greetingTitle').textContent = "欢迎你，" + (userName || "访客") + "!";
+          }
         }, 100);
       }
     }
@@ -515,19 +535,19 @@
         setTimeout(() => {
           next.classList.add('show');
           // 根据当前页面调用不同功能
-          if (currentSection === 2) {
+          if (currentSection === 4) {
             startGeolocation();
           }
-          if (currentSection === 3) {
+          if (currentSection === 5) {
             startSensor();
           }
-          if (currentSection === 4) {
+          if (currentSection === 6) {
             startCamera();
           }
-          if (currentSection === 5) {
+          if (currentSection === 7) {
             startGame();
           }
-          if (currentSection === 12) {
+          if (currentSection === 14) {
             startFireworks();
           }
         }, 50);
@@ -580,6 +600,11 @@
 
     function handleEnter(event) {
       if (event.key === "Enter") validatePassword();
+    }
+
+    // 新增函数：保存用户输入的姓名
+    function saveName() {
+      userName = document.getElementById('nameInput').value;
     }
 
     // 小游戏相关代码
